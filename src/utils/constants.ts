@@ -9,6 +9,7 @@ export const NO_CHANGES = "No changes";
 export const ORIGINAL_FLIGHTS_LEFT = "Original Flights left";
 export const NEW_FLIGHTS_LEFT = "New Flights left";
 export const WHAT_IS_YOUR_MOTIVE = "What is your motive?";
+export const MAX_ALLOWED = "Max allowed";
 
 export const quotaReasons = {
     [INCREASE]: {

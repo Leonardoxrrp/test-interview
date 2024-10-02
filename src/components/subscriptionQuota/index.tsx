@@ -12,7 +12,7 @@ import styles from "./styles.module.css";
 
 const SubscriptionQuota: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [flightCount, setFlightCount] = useState(2);
+  const [flightCount, setFlightCount] = useState(0);
   const [reason, setReason] = useState("");
 
   const initialCountRef = useRef(flightCount);
@@ -22,8 +22,8 @@ const SubscriptionQuota: React.FC = () => {
   }, [flightCount]);
 
   const isReasonDisabled = useMemo(() => {
-    return flightCount === initialCountRef.current;
-  }, [flightCount]);
+    return flightCount === initialCountRef.current || !isModalOpen;
+  }, [flightCount, isModalOpen]);
 
   useEffect(() => {
     setReason("");
@@ -35,6 +35,7 @@ const SubscriptionQuota: React.FC = () => {
 
   const handleSave = () => {
     setIsModalOpen(false);
+    setReason("");
     initialCountRef.current = flightCount;
   };
 
