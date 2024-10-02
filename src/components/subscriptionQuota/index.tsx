@@ -1,19 +1,32 @@
-import { useRef, useState, useMemo, useEffect } from "react";
+// SubscriptionQuota.tsx
+
+import { useRef, useState, useMemo, useEffect, useCallback } from "react";
 import {
+  CHANGES_SAVED_ERROR,
+  CHANGES_SAVED_SUCCESS,
   DECREASE,
+  ERROR,
   INCREASE,
   MANAGE_QUOTA,
   POWERED_BY_CARAVELO,
+  SUCCESS,
 } from "../../utils/constants";
-import SubscriptionQuotaModal from "../modals/subscriptionQuotaModal";
 import QuotaReason from "./QuotaReason";
 import FlightCount from "./FlightCount";
 import styles from "./styles.module.css";
+import SubscriptionQuotaModal from "../modals/subscriptionQuotaModal";
+import { useQuotaApi } from "../hooks/useQuotaApi";
+import Toast from "../toast";
 
 const SubscriptionQuota: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [flightCount, setFlightCount] = useState(0);
   const [reason, setReason] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<typeof SUCCESS | typeof ERROR>(
+    SUCCESS
+  );
+  const [showToast, setShowToast] = useState(false);
 
   const initialCountRef = useRef(flightCount);
 
@@ -29,27 +42,47 @@ const SubscriptionQuota: React.FC = () => {
     setReason("");
   }, [isReasonDisabled, actionType]);
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
+  const { loading, updateQuota } = useQuotaApi();
 
-  const handleSave = () => {
+  const handleModalClose = () => {
+    setFlightCount(initialCountRef.current);
     setIsModalOpen(false);
     setReason("");
-    initialCountRef.current = flightCount;
   };
 
   const handleFlightCount = (type: typeof INCREASE | typeof DECREASE) => {
-    if (type === INCREASE) {
-      setFlightCount((prev) => prev + 1);
-    } else {
-      setFlightCount((prev) => prev - 1);
-    }
+    setFlightCount((prev) => prev + (type === INCREASE ? 1 : -1));
   };
 
   const handleReasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setReason(e.target.value);
   };
+
+  const handleSave = async () => {
+    const success = await updateQuota({
+      flightCount,
+      reason,
+      actionType,
+    });
+
+    if (success) {
+      initialCountRef.current = flightCount;
+      setToastMessage(CHANGES_SAVED_SUCCESS);
+      setToastType(SUCCESS);
+      setShowToast(true);
+    } else {
+      setToastMessage(CHANGES_SAVED_ERROR);
+      setToastType(ERROR);
+      setShowToast(true);
+    }
+
+    setIsModalOpen(false);
+    setReason("");
+  };
+
+  const handleToastClose = useCallback(() => {
+    setShowToast(false);
+  }, []);
 
   return (
     <section>
@@ -60,7 +93,8 @@ const SubscriptionQuota: React.FC = () => {
         <SubscriptionQuotaModal
           onSave={handleSave}
           onClose={handleModalClose}
-          isSaveButtonDisabled={reason.length === 0}
+          isSaveButtonDisabled={reason.length === 0 || loading}
+          loading={loading}
         >
           <div className={styles["subscription-quota-modal__container"]}>
             <FlightCount
@@ -77,6 +111,13 @@ const SubscriptionQuota: React.FC = () => {
           </div>
         </SubscriptionQuotaModal>
       )}
+
+      <Toast
+        message={toastMessage}
+        type={toastType}
+        onClose={handleToastClose}
+        isVisible={showToast}
+      />
     </section>
   );
 };

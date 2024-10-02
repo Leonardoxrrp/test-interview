@@ -10,6 +10,13 @@ export const ORIGINAL_FLIGHTS_LEFT = "Original Flights left";
 export const NEW_FLIGHTS_LEFT = "New Flights left";
 export const WHAT_IS_YOUR_MOTIVE = "What is your motive?";
 export const MAX_ALLOWED = "Max allowed";
+export const SENDING = "SENDING...";
+export const SUCCESS = "SUCCESS";
+export const ERROR = "ERROR";
+export const CHANGES_SAVED_SUCCESS= "Changes saved successfully!"
+export const CHANGES_SAVED_ERROR = "Changes saved successfully!"
+
+
 
 export const quotaReasons = {
     [INCREASE]: {

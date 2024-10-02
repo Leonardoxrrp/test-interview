@@ -3,14 +3,17 @@ import styles from "./styles.module.css";
 import {
   EDIT_FLIGHTS,
   SAVE_CHANGES,
+  SENDING,
   SUBSCRIBER_ADD_OR_REMOVE_FLIGHTS,
 } from "../../../utils/constants";
+import { capitalizeFirstLetter } from "../../../utils/helpers";
 
 interface SubscriptionQuotaModalProps {
   onClose: () => void;
   onSave: () => void;
   children: React.ReactNode;
   isSaveButtonDisabled: boolean;
+  loading: boolean;
 }
 
 const SubscriptionQuotaModal: React.FC<SubscriptionQuotaModalProps> = ({
@@ -18,6 +21,7 @@ const SubscriptionQuotaModal: React.FC<SubscriptionQuotaModalProps> = ({
   onSave,
   children,
   isSaveButtonDisabled,
+  loading,
 }) => {
   return (
     <div
@@ -47,7 +51,7 @@ const SubscriptionQuotaModal: React.FC<SubscriptionQuotaModalProps> = ({
             disabled={isSaveButtonDisabled}
             className={styles["modal__close-modal-button"]}
           >
-            {SAVE_CHANGES}
+            {loading ? capitalizeFirstLetter(SENDING) : SAVE_CHANGES}
           </button>
         </footer>
       </div>
