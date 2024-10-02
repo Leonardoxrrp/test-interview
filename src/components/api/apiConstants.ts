@@ -15,7 +15,6 @@ export const HTTP_ERROR = "HTTP error!"
 export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
 
-// Error messages corresponding to HTTP status codes
 export const ERROR_MESSAGES = {
   [HTTP_STATUS.BAD_REQUEST]: 'Bad Request. Please check your input',
   [HTTP_STATUS.UNAUTHORIZED]: 'Unauthorized',
@@ -26,7 +25,6 @@ export const ERROR_MESSAGES = {
   DEFAULT: 'An unexpected error occurred.',
 };
 
-// HTTP methods
 export const HTTP_METHODS = {
   POST: 'POST',
   GET: 'GET',
@@ -34,7 +32,6 @@ export const HTTP_METHODS = {
   DELETE: 'DELETE',
 };
 
-// Headers
 export const HEADERS = {
   CONTENT_TYPE: 'Content-Type',
   APPLICATION_JSON: 'application/json',

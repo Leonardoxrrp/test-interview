@@ -1,5 +1,3 @@
-// SubscriptionQuota.tsx
-
 import { useRef, useState, useMemo, useEffect, useCallback } from "react";
 import {
   CHANGES_SAVED_ERROR,

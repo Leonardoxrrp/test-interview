@@ -38,7 +38,7 @@ const FlightCount: React.FC<FlightCountProps> = ({
       </p>
       <p>
         {NEW_FLIGHTS_LEFT}:{" "}
-        <span className={styles["flight-count__number"]}>
+        <span role="status" className={styles["flight-count__number"]}>
           {initialFlights === flightCount ? NO_CHANGES : flightCount}
         </span>
         {maxNewFlights && <span> ({MAX_ALLOWED})</span>}
@@ -48,14 +48,14 @@ const FlightCount: React.FC<FlightCountProps> = ({
         disabled={flightCount <= 0}
         aria-label="Decrease flight count"
       >
-        - {capitalizeFirstLetter(DECREASE)}
+        {capitalizeFirstLetter(DECREASE)}
       </button>
       <button
         onClick={() => onChange(INCREASE)}
         disabled={flightCount >= 3}
         aria-label="Increase flight count"
       >
-        + {capitalizeFirstLetter(INCREASE)}
+        {capitalizeFirstLetter(INCREASE)}
       </button>
     </div>
   );

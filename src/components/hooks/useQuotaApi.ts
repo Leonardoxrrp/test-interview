@@ -1,5 +1,3 @@
-// src/hooks/useQuotaApi.ts
-
 import { useState } from 'react';
 import { updateQuotaApi, QuotaApiParams } from '../api';
 import { ERROR_MESSAGES } from '../api/apiConstants';

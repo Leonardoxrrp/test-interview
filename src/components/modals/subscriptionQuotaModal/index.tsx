@@ -1,5 +1,3 @@
-import React from "react";
-import styles from "./styles.module.css";
 import {
   EDIT_FLIGHTS,
   SAVE_CHANGES,
@@ -7,6 +5,7 @@ import {
   SUBSCRIBER_ADD_OR_REMOVE_FLIGHTS,
 } from "../../../utils/constants";
 import { capitalizeFirstLetter } from "../../../utils/helpers";
+import styles from "./styles.module.css";
 
 interface SubscriptionQuotaModalProps {
   onClose: () => void;

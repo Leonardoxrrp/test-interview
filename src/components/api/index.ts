@@ -1,5 +1,3 @@
-// src/api/quotaApi.ts
-
 import {
   BASE_URL,
   ERROR_MESSAGES,
