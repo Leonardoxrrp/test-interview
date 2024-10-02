@@ -1,4 +1,4 @@
-import SubscriptionQuota from "../components/subscriptionQuota/SubscriptionQuota";
+import SubscriptionQuota from "../components/subscriptionQuota";
 
 function SubscriptionPage() {
   return <SubscriptionQuota />;
